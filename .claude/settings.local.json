@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__filesystem__directory_tree",
+      "Bash(ruby --version)",
+      "Bash(rbenv versions *)",
+      "Bash(gem list *)",
+      "Bash(curl -s \"https://rubygems.org/api/v1/gems/rails.json\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d['version']\\)\")",
+      "Bash(rbenv local *)",
+      "Bash(bundle exec *)",
+      "Bash(rbenv which *)",
+      "Bash(rbenv exec *)",
+      "Bash(rbenv install *)",
+      "Bash(brew list *)",
+      "Read(//Users/takashi/.rbenv/versions/**)",
+      "Read(//usr/local/bin/**)",
+      "Bash(echo \"Installing Ruby 3.3.8 in background \\(PID $!\\)\")",
+      "Bash(rm -f /Users/takashi/projects/portfolio/ec_test/db/migrate/*.rb && echo \"Migrations cleared\")",
+      "Bash(git config *)",
+      "Bash(rm -rf /Users/takashi/projects/portfolio/ec/.git)",
+      "Bash(git -C /Users/takashi/projects/portfolio/ec init)",
+      "Bash(git -C /Users/takashi/projects/portfolio/ec branch -m master main)"
+    ]
+  }
+}
