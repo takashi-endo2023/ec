@@ -15,11 +15,22 @@ import AdminDashboard from './pages/admin/AdminDashboard'
 import AdminProductFormPage from './pages/admin/AdminProductFormPage'
 
 const queryClient = new QueryClient()
+const DEMO = import.meta.env.VITE_DEMO_MODE === 'true'
+
+function DemoBanner() {
+  if (!DEMO) return null
+  return (
+    <div className="sticky top-0 z-[60] bg-[#1a1410] text-[#c9a96e] text-center text-xs py-2 px-4 tracking-wide">
+      🎭 デモモード — データはモックです。どのメールアドレス・パスワードでもログインできます。
+    </div>
+  )
+}
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+        <DemoBanner />
         <div className="min-h-screen flex flex-col">
           <Routes>
             {/* Admin routes (no header/footer) */}

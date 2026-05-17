@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Package } from 'lucide-react'
 import { signUp } from '../../api/auth'
 import { useAuthStore } from '../../stores/authStore'
 import Button from '../../components/ui/Button'
@@ -38,22 +37,33 @@ export default function RegisterPage() {
     }
   }
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-12">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <div className="flex justify-center mb-3">
-            <div className="bg-indigo-600 p-3 rounded-2xl">
-              <Package className="w-8 h-8 text-white" />
-            </div>
-          </div>
-          <h1 className="text-2xl font-bold text-gray-900">新規登録</h1>
-          <p className="text-gray-600 mt-1 text-sm">アカウントを作成してください</p>
-        </div>
+  const inputCls = 'w-full bg-[#faf9f7] border border-[#e8e3da] rounded-lg px-4 py-3 text-sm text-[#1a1410] focus:outline-none focus:border-[#9a8677] focus:ring-1 focus:ring-[#9a8677]/30 transition-all placeholder-[#b8a99a]'
 
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
+  return (
+    <div className="min-h-screen flex">
+      {/* Left decorative panel */}
+      <div className="hidden lg:flex lg:w-1/2 bg-[#1a1410] items-center justify-center p-16">
+        <div className="text-center">
+          <div className="flex items-baseline gap-1 justify-center mb-6">
+            <span className="font-serif text-4xl font-bold text-white tracking-tight">MAISON</span>
+            <span className="font-serif text-4xl font-light tracking-[0.2em] text-[#c9a96e]">EC</span>
+          </div>
+          <p className="text-[#9a8677] text-sm leading-relaxed max-w-xs">
+            厳選された高品質なアイテムで、<br />あなたのライフスタイルをより豊かに。
+          </p>
+        </div>
+      </div>
+
+      {/* Right form panel */}
+      <div className="flex-1 flex items-center justify-center px-6 py-12 bg-[#faf9f7]">
+        <div className="w-full max-w-sm">
+          <div className="mb-10">
+            <h1 className="font-serif text-3xl font-bold text-[#1a1410] mb-2">新規登録</h1>
+            <p className="text-sm text-[#9a8677]">アカウントを作成してください</p>
+          </div>
+
           {errors.length > 0 && (
-            <div className="bg-red-50 border border-red-200 text-red-700 rounded-lg p-3 text-sm mb-4">
+            <div className="bg-red-50 border border-red-200 text-red-700 rounded-lg p-3 text-sm mb-6">
               <ul className="list-disc list-inside space-y-1">
                 {errors.map((e, i) => <li key={i}>{e}</li>)}
               </ul>
@@ -62,33 +72,40 @@ export default function RegisterPage() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">お名前 <span className="text-red-500">*</span></label>
-              <input name="name" type="text" required className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="山田 太郎" />
+              <label className="block text-xs font-medium text-[#5c4d3f] tracking-wide mb-1.5">お名前 <span className="text-red-400">*</span></label>
+              <input name="name" type="text" required className={inputCls} placeholder="山田 太郎" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">メールアドレス <span className="text-red-500">*</span></label>
-              <input name="email" type="email" required className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="you@example.com" />
+              <label className="block text-xs font-medium text-[#5c4d3f] tracking-wide mb-1.5">メールアドレス <span className="text-red-400">*</span></label>
+              <input name="email" type="email" required className={inputCls} placeholder="you@example.com" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">電話番号</label>
-              <input name="phone" type="tel" className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="090-0000-0000" />
+              <label className="block text-xs font-medium text-[#5c4d3f] tracking-wide mb-1.5">電話番号</label>
+              <input name="phone" type="tel" className={inputCls} placeholder="090-0000-0000" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">パスワード <span className="text-red-500">*</span></label>
-              <input name="password" type="password" required minLength={8} className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="8文字以上" />
+              <label className="block text-xs font-medium text-[#5c4d3f] tracking-wide mb-1.5">パスワード <span className="text-red-400">*</span></label>
+              <input name="password" type="password" required minLength={8} className={inputCls} placeholder="8文字以上" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">パスワード（確認） <span className="text-red-500">*</span></label>
-              <input name="password_confirmation" type="password" required className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="もう一度入力" />
+              <label className="block text-xs font-medium text-[#5c4d3f] tracking-wide mb-1.5">パスワード（確認） <span className="text-red-400">*</span></label>
+              <input name="password_confirmation" type="password" required className={inputCls} placeholder="もう一度入力" />
             </div>
-            <Button type="submit" className="w-full" size="lg" loading={loading}>
-              アカウントを作成
-            </Button>
+            <div className="pt-2">
+              <Button
+                type="submit"
+                className="w-full !bg-[#1a1410] !text-white hover:!bg-[#3d3229] !rounded-full !py-3 !text-sm tracking-wide"
+                size="lg"
+                loading={loading}
+              >
+                アカウントを作成
+              </Button>
+            </div>
           </form>
 
-          <p className="text-center text-sm text-gray-600 mt-6">
+          <p className="text-center text-sm text-[#9a8677] mt-8">
             すでにアカウントをお持ちの方は{' '}
-            <Link to="/login" className="text-indigo-600 font-medium hover:underline">ログイン</Link>
+            <Link to="/login" className="text-[#1a1410] font-medium hover:underline underline-offset-2">ログイン</Link>
           </p>
         </div>
       </div>

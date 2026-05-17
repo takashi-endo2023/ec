@@ -1,5 +1,11 @@
 import apiClient from './client'
 import type { Product, PaginationMeta } from '../types'
+import {
+  mockGetProducts,
+  mockGetProduct,
+} from './mock/handlers'
+
+const DEMO = import.meta.env.VITE_DEMO_MODE === 'true'
 
 interface ProductsParams {
   keyword?: string
@@ -10,6 +16,7 @@ interface ProductsParams {
 }
 
 export const getProducts = async (params?: ProductsParams) => {
+  if (DEMO) return mockGetProducts(params)
   const res = await apiClient.get<{ products: Product[]; meta: PaginationMeta }>(
     '/products',
     { params }
@@ -18,6 +25,7 @@ export const getProducts = async (params?: ProductsParams) => {
 }
 
 export const getProduct = async (id: number) => {
+  if (DEMO) return mockGetProduct(id)
   const res = await apiClient.get<{ product: Product }>(`/products/${id}`)
   return res.data.product
 }

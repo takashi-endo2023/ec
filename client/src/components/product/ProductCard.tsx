@@ -35,52 +35,56 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <Link to={`/products/${product.id}`} className="group block">
-      <div className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100 hover:border-indigo-100">
-        {/* Image */}
-        <div className="aspect-square overflow-hidden bg-gray-50 relative">
-          {product.image_url ? (
-            <img
-              src={product.image_url}
-              alt={product.name}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center text-gray-200">
-              <Package className="w-16 h-16" />
-            </div>
-          )}
-          {!product.in_stock && (
-            <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-              <span className="bg-white text-gray-700 text-xs font-semibold px-3 py-1 rounded-full">在庫切れ</span>
-            </div>
-          )}
-          {product.category && (
-            <span className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm text-gray-600 text-xs px-2 py-0.5 rounded-full">
-              {product.category}
-            </span>
-          )}
-        </div>
+      {/* Image */}
+      <div className="aspect-[3/4] overflow-hidden bg-[#f3f1ec] rounded-xl relative mb-3">
+        {product.image_url ? (
+          <img
+            src={product.image_url}
+            alt={product.name}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-[#d4cbbf]">
+            <Package className="w-12 h-12" />
+          </div>
+        )}
 
-        {/* Info */}
-        <div className="p-4">
-          <h3 className="font-semibold text-gray-900 text-sm truncate">{product.name}</h3>
-          {product.description && (
-            <p className="text-xs text-gray-500 mt-1 line-clamp-2">{product.description}</p>
-          )}
-          <div className="flex items-center justify-between mt-3">
-            <p className="text-lg font-bold text-indigo-600">
-              ¥{product.price.toLocaleString()}
-            </p>
+        {/* Overlay on hover */}
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+
+        {/* Out of stock overlay */}
+        {!product.in_stock && (
+          <div className="absolute inset-0 bg-white/60 backdrop-blur-[1px] flex items-center justify-center">
+            <span className="text-[#5c4d3f] text-xs font-medium tracking-widest uppercase">Sold Out</span>
+          </div>
+        )}
+
+        {/* Category badge */}
+        {product.category && (
+          <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-[#5c4d3f] text-[10px] tracking-widest uppercase px-2.5 py-1 rounded-full">
+            {product.category}
+          </span>
+        )}
+
+        {/* Add to cart — revealed on hover */}
+        {product.in_stock && (
+          <div className="absolute bottom-0 inset-x-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out">
             <button
               onClick={handleAddToCart}
-              disabled={!product.in_stock || adding}
-              className="flex items-center gap-1.5 bg-indigo-600 text-white text-xs font-medium px-3 py-1.5 rounded-lg hover:bg-indigo-700 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={adding}
+              className="w-full flex items-center justify-center gap-2 bg-[#1a1410] text-white text-xs font-medium py-2.5 rounded-lg hover:bg-[#3d3229] active:scale-95 transition-all disabled:opacity-60"
             >
               <ShoppingCart className="w-3.5 h-3.5" />
-              {adding ? '追加中...' : 'カートへ'}
+              {adding ? '追加中...' : 'カートへ追加'}
             </button>
           </div>
-        </div>
+        )}
+      </div>
+
+      {/* Info */}
+      <div>
+        <h3 className="text-sm font-medium text-[#1a1410] truncate leading-snug">{product.name}</h3>
+        <p className="text-sm text-[#5c4d3f] mt-1 font-light">¥{product.price.toLocaleString()}</p>
       </div>
     </Link>
   )
